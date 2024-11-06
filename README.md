@@ -12,4 +12,7 @@ Cyan	36	\e[36m
 White	37	\e[37m
 Default	39	\e[39m
 
+vim ~/.bashrc
+source ~/.bashrc
+
 PS1='\[\e[1;36m\]\u@\h \[\e[1;34m\]\w \[\e[1;32m\]$ \[\e[0m\]' # username : cyan, $ : red 
