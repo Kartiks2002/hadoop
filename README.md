@@ -15,4 +15,5 @@ Default	39	\e[39m
 vim ~/.bashrc
 source ~/.bashrc
 
-PS1='\[\e[1;36m\]\u@\h \[\e[1;34m\]\w \[\e[1;32m\]$ \[\e[0m\]' # username : cyan, $ : red 
+PS1='\[\e[1;36m\]\u\[\e[0m\]\[\e[1;31m\]@\[\e[0m\]\[\e[1;35m\]\h\[\e[0m\] \[\e[1;34m\]\w\[\e[0m\] \[\e[1;31m\]$\[\e[0m\] '  # username : cyan, host : magenta , @ $ : red 
+
