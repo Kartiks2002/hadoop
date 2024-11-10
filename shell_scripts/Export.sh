@@ -4,7 +4,7 @@
 # Created on: 10th Nov 2024 (23:53)
 # Last modified: 10th Nov 2024 
 
-#Purpose: Export the java project and also pass the no of reducers
+#Purpose: Export the java project and specify the no of reducers and run the project 
 
 if [ $# -lt 4  ]; then
 	echo "Usage: $0 <JavaPackageName> <MainClassName> <InputPath> <OutputPath> <NumReducers>"
