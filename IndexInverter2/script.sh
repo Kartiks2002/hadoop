@@ -41,6 +41,11 @@ NUM_OF_REDUCERS=1
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --reducers)
+            if [ -z "$2" ]; then  # Check if the next argument is empty
+                    echo -e "${RED}Error: --reducers flag requires a number as an argument.${NC}"
+                    display_help
+                    exit 1
+            fi
             NUM_OF_REDUCERS="$2"  # Set number of reducers to the next argument
             shift 2               # Shift to the next argument
             ;;
