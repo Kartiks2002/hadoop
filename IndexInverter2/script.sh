@@ -3,6 +3,7 @@
 #Prerequisite: The .java and hortonworks.txt files should be in the same directory as this script.
 
 # Author: Kartik
+# Guided by: Amit Khedkar
 # Created on: 11th Nov 2024
 # Last Modified: 15th Nov 2024
 
