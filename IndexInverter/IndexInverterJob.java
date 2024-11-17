@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
@@ -16,90 +15,125 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+/**
+ * IndexInverterJob is a Hadoop MapReduce program that reads an input file where each line contains
+ * an identifier followed by words. It inverts the index by outputting each word as a key and all 
+ * corresponding identifiers as values.
+ */
 public class IndexInverterJob extends Configured implements Tool {
 
-	public static class IndexInverterMapper extends
-			Mapper<LongWritable, Text, Text, Text> {
+    /**
+     * The Mapper class processes each line of the input file. It splits the line by commas and outputs
+     * the word (starting from the second word in the line) as the key and the first word (identifier) as the value.
+     */
+    public static class IndexInverterMapper extends Mapper<LongWritable, Text, Text, Text> {
 
-		private Text outputKey = new Text();
-		private Text outputValue = new Text();
-		
-		//TODO
-		@Override
-		protected void map(LongWritable key, Text value, Context context)
-				throws IOException, InterruptedException {
-			String [] words = value.toString().split(",");
-			outputValue.set(words[0]);
-			for(int i = 1; i < words.length; i++) {
-				outputKey.set(words[i]);
-				context.write(outputKey, outputValue);
-			}
-		}
-	}
-	
-	//TODO
-	public static class IndexInverterReducer extends
-			Reducer<Text, Text, Text, Text> {
-		private Text outputValue = new Text();
-		
-		//TODO
-		@Override
-		protected void reduce(Text key, Iterable<Text> values, Context context)
-				throws IOException, InterruptedException {
-			StringBuilder builder = new StringBuilder();
-			for(Text value: values) {
-				builder.append(value.toString()).append(",");
-			}
-			builder.deleteCharAt(builder.length() - 1);
-			outputValue.set(builder.toString());
-			context.write(key, outputValue);
-		}
-		
-	}	
-	
-	@Override
-	public int run(String[] args) throws Exception {
-		Configuration conf = super.getConf();
-		Job job = Job.getInstance(conf, "IndexInverterJob");
-		job.setJarByClass(IndexInverterJob.class);
+        private Text outputKey = new Text();
+        private Text outputValue = new Text();
 
-		Path in = new Path(args[0]);
-		Path out = new Path(args[1]);
-		out.getFileSystem(conf).delete(out, true);
-		FileInputFormat.setInputPaths(job, in);
-		FileOutputFormat.setOutputPath(job,  out);
-		
-		//TODO
-		job.setMapperClass(IndexInverterMapper.class);
-		//TODO
-		job.setReducerClass(IndexInverterReducer.class);
+        /**
+         * The map method processes each input line and splits it by commas. The first token is considered
+         * as the identifier, and each subsequent token (word) is emitted as a key with the identifier as the value.
+         * 
+         * @param key the byte offset of the current line in the input file (ignored in this case)
+         * @param value the input line (as Text) to process
+         * @param context the Context object to write the output key-value pairs
+         */
+        @Override
+        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            String[] words = value.toString().split(",");
+            outputValue.set(words[0]); // First word is the identifier
+            for (int i = 1; i < words.length; i++) {
+                outputKey.set(words[i]); // Each word is the output key
+                context.write(outputKey, outputValue); // Write word as key, identifier as value
+            }
+        }
+    }
 
-		job.setInputFormatClass(TextInputFormat.class);
-		job.setOutputFormatClass(TextOutputFormat.class);
+    /**
+     * The Reducer class collects all values (identifiers) associated with each word and concatenates them
+     * into a comma-separated list.
+     */
+    public static class IndexInverterReducer extends Reducer<Text, Text, Text, Text> {
 
-		//TODO
-		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(Text.class);
-		//TODO
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
-		
-		return job.waitForCompletion(true)?0:1;
-	}
+        private Text outputValue = new Text();
 
-	public static void main(String[] args) {
-		int result;
-		try {
-			//TODO
-			result = ToolRunner.run(new Configuration(),  
-			        new IndexInverterJob(), args);
-			System.exit(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        /**
+         * The reduce method takes a word as the key and all corresponding identifiers as values.
+         * It concatenates all identifiers into a single comma-separated string and writes the word 
+         * and its list of identifiers as the output.
+         * 
+         * @param key the word being processed
+         * @param values an Iterable of Text containing all identifiers associated with the word
+         * @param context the Context object to write the final key-value pairs (word, identifier list)
+         */
+        @Override
+        protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+            StringBuilder builder = new StringBuilder();
+            for (Text value : values) {
+                builder.append(value.toString()).append(",");
+            }
+            if (builder.length() > 0) {
+                builder.deleteCharAt(builder.length() - 1); // Remove trailing comma
+            }
+            outputValue.set(builder.toString());
+            context.write(key, outputValue); // Write word and concatenated identifiers
+        }
+    }
 
+    /**
+     * Configures and runs the MapReduce job.
+     * 
+     * @param args the input and output paths for the job
+     * @return 0 if the job completes successfully, 1 otherwise
+     * @throws Exception if the job fails
+     */
+    @Override
+    public int run(String[] args) throws Exception {
+        Configuration conf = super.getConf();
+        Job job = Job.getInstance(conf, "IndexInverterJob");
+        job.setJarByClass(IndexInverterJob.class);
+
+        Path in = new Path(args[0]);
+        Path out = new Path(args[1]);
+
+        // Delete output directory if it exists
+        out.getFileSystem(conf).delete(out, true);
+
+        // Set input and output paths
+        FileInputFormat.setInputPaths(job, in);
+        FileOutputFormat.setOutputPath(job, out);
+
+        // Set Mapper and Reducer classes
+        job.setMapperClass(IndexInverterMapper.class);
+        job.setReducerClass(IndexInverterReducer.class);
+
+        // Set input and output format classes
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+
+        // Set output key and value types for Mapper and Reducer
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(Text.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(Text.class);
+
+        // Wait for the job to complete and return the result
+        return job.waitForCompletion(true) ? 0 : 1;
+    }
+
+    /**
+     * The main method, which sets up and starts the MapReduce job using ToolRunner.
+     * 
+     * @param args the input and output paths
+     */
+    public static void main(String[] args) {
+        int result;
+        try {
+            result = ToolRunner.run(new Configuration(), new IndexInverterJob(), args);
+            System.exit(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-//Use following command to run the application
-//$>	yarn jar invertedindex.jar <Main class> inverted/ inverted/output
