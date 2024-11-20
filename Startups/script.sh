@@ -10,6 +10,27 @@ NC='\033[0m'
 
 HDFS_DIR="/user/cloudera"
 
+# Help function
+show_help() {
+    echo -e "${GREEN}Usage: ./automation_script.sh${NC}"
+    echo -e "This script automates the process of uploading a CSV file to HDFS, creating a Hive table, and running Hive queries."
+    echo -e "Options:"
+    echo -e "  -h, --help    Show this help message"
+    echo -e "  Make sure the file 'Listofstartups.csv' is in the same directory as the script."
+}
+
+# Check if the help flag is passed
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    show_help
+    exit 0
+fi
+
+# Check if the CSV file exists locally
+if [ ! -f "Listofstartups.csv" ]; then
+    echo -e "${RED}Error: CSV file '$LOCAL_CSV_FILE' not found in the current directory.${NC}"
+    exit 1
+fi
+
 # check if the csv file already exists on the hdfs
 hdfs dfs -test -f $HDFS_DIR/Listofstartups.csv
 if [ $? -eq 0 ]; then
