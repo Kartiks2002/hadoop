@@ -54,7 +54,7 @@ else
 	exit 1
 fi
 # execute Hive query from the hql script
-echo "${GREEN}Executing Hive queries from queries.hql...${NC}"
+echo -e "${GREEN}Executing Hive queries from queries.hql...${NC}"
 hive -f queries.hql
 if [ $? -eq 0 ]; then
     echo "${GREEN}Hive queries executed successfully.${NC}"
