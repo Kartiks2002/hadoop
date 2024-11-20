@@ -1,6 +1,6 @@
 # Evaluation Lab 5 - Hive
 
-## Inspect the data<br?
+## Inspect the data<br>
 First we will ensure that the data is clean and consistent.
 After having an overlook of the data, we can say that the data is clean and consistent.
 
