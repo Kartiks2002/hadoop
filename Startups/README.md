@@ -27,10 +27,6 @@ What the Script Does:
    - Load data from CSV.
    - Find the sector with the most startups.
 
-
-License:
-MIT License.
-
 ## Inspect the data<br>
 First we will ensure that the data is clean and consistent.
 After taking a look the data, we can say that the data is clean and consistent.
