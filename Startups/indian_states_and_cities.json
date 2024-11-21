@@ -1,0 +1,163 @@
+{
+    "Andhra Pradesh": [
+        "Visakhapatnam",
+        "Vijayawada",
+        "Guntur",
+        "Tirupati"
+    ],
+    "Arunachal Pradesh": [
+        "Itanagar",
+        "Tawang",
+        "Pasighat"
+    ],
+    "Assam": [
+        "Guwahati",
+        "Dibrugarh",
+        "Jorhat",
+        "Silchar"
+    ],
+    "Bihar": [
+        "Patna",
+        "Gaya",
+        "Bhagalpur",
+        "Muzzaffarpur"
+    ],
+    "Chhattisgarh": [
+        "Raipur",
+        "Bhilai",
+        "Korba",
+        "Bilaspur"
+    ],
+    "Goa": [
+        "Panaji",
+        "Vasco da Gama",
+        "Margao",
+        "Mapusa"
+    ],
+    "Gujarat": [
+        "Ahmedabad",
+        "Surat",
+        "Vadodara",
+        "Rajkot"
+    ],
+    "Haryana": [
+        "Chandigarh",
+        "Gurgaon",
+        "Faridabad",
+        "Hisar"
+    ],
+    "Himachal Pradesh": [
+        "Shimla",
+        "Dharamshala",
+        "Manali",
+        "Kullu"
+    ],
+    "Jharkhand": [
+        "Ranchi",
+        "Jamshedpur",
+        "Dhanbad",
+        "Hazaribagh"
+    ],
+    "Karnataka": [
+        "Bengaluru",
+        "Mysuru",
+        "Hubli",
+        "Mangalore"
+    ],
+    "Kerala": [
+        "Thiruvananthapuram",
+        "Kochi",
+        "Kozhikode",
+        "Kottayam"
+    ],
+    "Madhya Pradesh": [
+        "Bhopal",
+        "Indore",
+        "Gwalior",
+        "Jabalpur"
+    ],
+    "Maharashtra": [
+        "Mumbai",
+        "Pune",
+        "Nagpur",
+        "Nashik"
+    ],
+    "Manipur": [
+        "Imphal",
+        "Thoubal",
+        "Churachandpur"
+    ],
+    "Meghalaya": [
+        "Shillong",
+        "Tura",
+        "Jowai"
+    ],
+    "Mizoram": [
+        "Aizawl",
+        "Lunglei",
+        "Saiha"
+    ],
+    "Nagaland": [
+        "Kohima",
+        "Dimapur",
+        "Mokokchung"
+    ],
+    "Odisha": [
+        "Bhubaneswar",
+        "Cuttack",
+        "Rourkela",
+        "Berhampur"
+    ],
+    "Punjab": [
+        "Chandigarh",
+        "Amritsar",
+        "Ludhiana",
+        "Jalandhar"
+    ],
+    "Rajasthan": [
+        "Jaipur",
+        "Udaipur",
+        "Jodhpur",
+        "Kota"
+    ],
+    "Sikkim": [
+        "Gangtok",
+        "Namchi",
+        "Jorethang"
+    ],
+    "Tamil Nadu": [
+        "Chennai",
+        "Coimbatore",
+        "Madurai",
+        "Salem"
+    ],
+    "Telangana": [
+        "Hyderabad",
+        "Warangal",
+        "Khammam",
+        "Karimnagar"
+    ],
+    "Tripura": [
+        "Agartala",
+        "Dharmanagar",
+        "Udaipur"
+    ],
+    "Uttar Pradesh": [
+        "Lucknow",
+        "Kanpur",
+        "Varanasi",
+        "Agra"
+    ],
+    "Uttarakhand": [
+        "Dehradun",
+        "Haridwar",
+        "Nainital",
+        "Rishikesh"
+    ],
+    "West Bengal": [
+        "Kolkata",
+        "Darjeeling",
+        "Siliguri",
+        "Asansol"
+    ]
+}
