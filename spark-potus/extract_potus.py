@@ -7,7 +7,7 @@ spark = SparkSession.builder.appName("Spark SQL basic example").enableHiveSuppor
 
 
 
-spark.read.csv('file:///home/talentum/wh/whitehouse_visits.txt', header=False, inferSchema=True)\
+spark.read.csv('whitehouse_visits.txt', header=False, inferSchema=True)\
     .filter(col('_c19') == "POTUS")\
     .select(col('_c0'), col('_c1'), col('_c6'), col('_c11'), col('_c21'), col('_c25'))\
     .withColumnRenamed('_c0', 'fname')\
@@ -19,6 +19,6 @@ spark.read.csv('file:///home/talentum/wh/whitehouse_visits.txt', header=False, i
     .coalesce(1)\
     .write\
     .option('header', 'true')\
-    .csv('file:///home/talentum/wh/potus')
+    .csv('potus_out/')
 
 
